@@ -124,34 +124,38 @@ public class Livro extends ItemBiblioteca {
     }
 
     public static void gerenciarLivros(Scanner scanner) {
-        System.out.println("==== MENU ====");
-        System.out.println("1. Salvar Livro");
-        System.out.println("2. Listar Livros");
-        System.out.println("3. Atualizar Livro");
-        System.out.println("4. Excluir Livro");
-        System.out.println("0. Sair");
-        System.out.print("Escolha uma opção: ");
+        int opcao;
 
-        int opcao = scanner.nextInt();
-        scanner.nextLine();
-        switch (opcao) {
-            case 1:
-                salvarLivro(scanner);
-                break;
-            case 2:
-                listarLivros();
-                break;
-            case 3:
-                atualizarLivro(scanner);
-                break;
-            case 4:
-                excluirLivro(scanner);
-                break;
-            case 0:
-                System.out.println("Saindo...");
-                break;
-            default:
-                System.out.println("Opção inválida!");
-        }
+        do {
+            System.out.println("==== MENU ====");
+            System.out.println("1. Salvar Livro");
+            System.out.println("2. Listar Livros");
+            System.out.println("3. Atualizar Livro");
+            System.out.println("4. Excluir Livro");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+            switch (opcao) {
+                case 1:
+                    salvarLivro(scanner);
+                    break;
+                case 2:
+                    listarLivros();
+                    break;
+                case 3:
+                    atualizarLivro(scanner);
+                    break;
+                case 4:
+                    excluirLivro(scanner);
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }while (opcao != 0);
     }
 }

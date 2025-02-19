@@ -122,34 +122,37 @@ public class Revista extends ItemBiblioteca {
     }
 
     public static void gerenciarRevistas(Scanner scanner) {
-        System.out.println("==== MENU ====");
-        System.out.println("1. Salvar Revista");
-        System.out.println("2. Listar Revistas");
-        System.out.println("3. Atualizar Revista");
-        System.out.println("4. Excluir Revista");
-        System.out.println("0. Sair");
-        System.out.print("Escolha uma opção: ");
+        int opcao;
+        do {
+            System.out.println("==== MENU ====");
+            System.out.println("1. Salvar Revista");
+            System.out.println("2. Listar Revistas");
+            System.out.println("3. Atualizar Revista");
+            System.out.println("4. Excluir Revista");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
 
-        int opcao = scanner.nextInt();
-        scanner.nextLine();
-        switch (opcao) {
-            case 1:
-                salvarRevista(scanner);
-                break;
-            case 2:
-                listarRevistas();
-                break;
-            case 3:
-                atualizarRevista(scanner);
-                break;
-            case 4:
-                excluirRevista(scanner);
-                break;
-            case 0:
-                System.out.println("Saindo...");
-                break;
-            default:
-                System.out.println("Opção inválida!");
-        }
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+            switch (opcao) {
+                case 1:
+                    salvarRevista(scanner);
+                    break;
+                case 2:
+                    listarRevistas();
+                    break;
+                case 3:
+                    atualizarRevista(scanner);
+                    break;
+                case 4:
+                    excluirRevista(scanner);
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }while (opcao != 0);
     }
 }

@@ -21,7 +21,6 @@ public class OpUsuario {
             if (usuario.getId() == usuarioAtualizado.getId()) {
                 usuario.setNome(usuarioAtualizado.getNome());
                 usuario.setEmail(usuarioAtualizado.getEmail());
-                usuario.setSenha(usuarioAtualizado.getSenha());
                 saveToFile(usuarios);
                 return;
             }
@@ -44,12 +43,11 @@ public class OpUsuario {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
-                if (fields.length == 4) { // 4 campos: ID, Nome, E-mail, Senha
+                if (fields.length == 3) {
                     Usuario usuario = new Usuario(
                             Integer.parseInt(fields[0]),
                             fields[1],
-                            fields[2],
-                            fields[3]
+                            fields[2]
                     );
                     usuarios.add(usuario);
                 }
@@ -66,8 +64,7 @@ public class OpUsuario {
             for (Usuario usuario : usuarios) {
                 bw.write(usuario.getId() + ","
                         + usuario.getNome() + ","
-                        + usuario.getEmail() + ","
-                        + usuario.getSenha());
+                        + usuario.getEmail());
                 bw.newLine();
             }
         } catch (IOException e) {

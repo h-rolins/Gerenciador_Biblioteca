@@ -35,7 +35,7 @@ public class Main {
                 case 4:
                    //gerenciarEmprestimo(scanner);
                     break;
-                case 0:
+                case 5:
                     System.out.println("Saindo...");
                     break;
                 default:
