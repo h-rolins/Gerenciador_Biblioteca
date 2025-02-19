@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        //Usuario usuario = new Usuario();
         Scanner scanner = new Scanner(System.in);
         int opcao;
 
@@ -18,7 +19,7 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    System.out.println("Você escolheu a Opção 1.");
+                    //Usuario.gerenciarUsuario(scanner);
                     break;
                 case 2:
                     System.out.println("Você escolheu a Opção 2.");
@@ -33,7 +34,6 @@ public class Main {
                     System.out.println("Opção inválida! Tente novamente.");
             }
         } while (opcao != 0);
-        //tentando separar a porra das branch
 
         scanner.close();
     }
