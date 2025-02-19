@@ -26,14 +26,10 @@ public class Livro extends ItemBiblioteca {
         return super.getDescricao() + " | " + numPag + " páginas.";
     }
 
-    // Método para salvar um livro
     private static void salvarLivro(Scanner scanner) {
-        System.out.println("Você escolheu a opção 1 (Salvar Livro).");
-
-        // Solicita os dados do livro
         System.out.print("Digite o ID do livro: ");
         int id = scanner.nextInt();
-        scanner.nextLine();  // Limpa o buffer
+        scanner.nextLine();
         System.out.print("Digite o título do livro: ");
         String titulo = scanner.nextLine();
         System.out.print("Digite o autor do livro: ");
@@ -44,17 +40,14 @@ public class Livro extends ItemBiblioteca {
         String anoPublicacao = scanner.nextLine();
         System.out.print("Digite o número de páginas do livro: ");
         int numPag = scanner.nextInt();
-        scanner.nextLine();  // Limpa o buffer
+        scanner.nextLine();
 
-        // Cria o livro e salva
         Livro livro = new Livro(id, titulo, autor, editora, anoPublicacao, numPag);
         OpLivro.saveLivro(livro);
         System.out.println("Livro salvo com sucesso!");
     }
 
-    // Método para listar os livros
     private static void listarLivros() {
-        System.out.println("Você escolheu a opção 2 (Listar Livros).");
         List<Livro> livros = OpLivro.loadLivros();
 
         if (livros.isEmpty()) {
@@ -68,14 +61,10 @@ public class Livro extends ItemBiblioteca {
         }
     }
 
-    // Método para atualizar um livro
     private static void atualizarLivro(Scanner scanner) {
-        System.out.println("Você escolheu a opção 3 (Atualizar Livro).");
-
-        // Solicita o ID do livro a ser atualizado
         System.out.print("Digite o ID do livro que deseja atualizar: ");
         int id = scanner.nextInt();
-        scanner.nextLine();  // Limpa o buffer
+        scanner.nextLine();
 
         List<Livro> livros = OpLivro.loadLivros();
         boolean encontrado = false;
@@ -85,7 +74,6 @@ public class Livro extends ItemBiblioteca {
                 encontrado = true;
                 System.out.println("Livro encontrado! Agora, digite os novos dados.");
 
-                // Solicita os novos dados
                 System.out.print("Digite o novo título: ");
                 livro.setTitulo(scanner.nextLine());
                 System.out.print("Digite o novo autor: ");
@@ -96,9 +84,8 @@ public class Livro extends ItemBiblioteca {
                 livro.setAnoPublicacao(scanner.nextLine());
                 System.out.print("Digite o novo número de páginas: ");
                 livro.setNumPag(scanner.nextInt());
-                scanner.nextLine();  // Limpa o buffer
+                scanner.nextLine();
 
-                // Atualiza o livro
                 OpLivro.updateLivro(livro);
                 System.out.println("Livro atualizado com sucesso!");
                 break;
@@ -110,7 +97,6 @@ public class Livro extends ItemBiblioteca {
         }
     }
 
-    // Método para excluir um livro
     private static void excluirLivro(Scanner scanner) {
         System.out.println("Você escolheu a opção 4 (Excluir Livro).");
 
