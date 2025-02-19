@@ -1,41 +1,147 @@
-package modelos;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Usuario {
+    private static List<Usuario> usuarios = new ArrayList<>(); // Lista para armazenar os usuários
+    private int id;
     private String nome;
-    private String cpf;
-    private int idade;
+    private String email;
+    private String senha;
 
-    public Usuario(String nome, String cpf, int idade) {
+    // Construtor
+    public Usuario(int id, String nome, String email, String senha) {
+        this.id = id;
         this.nome = nome;
-        this.cpf = cpf;
-        this.idade = idade;
+        this.email = email;
+        this.senha = senha;
+    }
+
+    // Getters e setters
+    public int getId() {
+        return id;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getEmail() {
+        return email;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public static List<Usuario> getUsuarios() {
+        return usuarios;
     }
 
-    public int getIdade() {
-        return idade;
+    // Método para cadastrar usuário
+    public static void cadastrarUsuario(Scanner scanner) {
+        System.out.print("Digite o nome do usuário: ");
+        String nome = scanner.nextLine();
+        System.out.print("Digite o e-mail do usuário: ");
+        String email = scanner.nextLine();
+        System.out.print("Digite a senha do usuário: ");
+        String senha = scanner.nextLine();
+
+        int novoId = usuarios.size() + 1; // Gera um ID único para o novo usuário
+        Usuario novoUsuario = new Usuario(novoId, nome, email, senha);
+        usuarios.add(novoUsuario);
+        System.out.println("Usuário cadastrado com sucesso!");
     }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
+    // Método para listar os usuários
+    public static void listarUsuarios() {
+        if (usuarios.isEmpty()) {
+            System.out.println("Não há usuários cadastrados.");
+        } else {
+            System.out.println("\n===== Lista de Usuários =====");
+            for (Usuario usuario : usuarios) {
+                System.out.println("ID: " + usuario.getId() + " | Nome: " + usuario.getNome() + " | E-mail: " + usuario.getEmail());
+            }
+        }
     }
 
-    public String getDescricao() {
-        return "Usuário: " + nome + " | CPF: " + cpf + " | Idade: " + idade + " anos.";
+    // Método para alterar os dados do usuário
+    public static void alterarDadosUsuario(Scanner scanner) {
+        System.out.print("Digite o ID do usuário que deseja alterar: ");
+        int idUsuario = scanner.nextInt();
+        scanner.nextLine(); // Consome o '\n' pendente após nextInt()
+
+        Usuario usuario = buscarUsuarioPorId(idUsuario);
+        if (usuario != null) {
+            System.out.print("Digite o novo nome do usuário (atual: " + usuario.getNome() + "): ");
+            String novoNome = scanner.nextLine();
+            System.out.print("Digite o novo e-mail do usuário (atual: " + usuario.getEmail() + "): ");
+            String novoEmail = scanner.nextLine();
+            System.out.print("Digite a nova senha do usuário (atual: " + usuario.getSenha() + "): ");
+            String novaSenha = scanner.nextLine();
+
+            // Atualiza os dados do usuário
+            usuario.nome = novoNome;
+            usuario.email = novoEmail;
+            usuario.senha = novaSenha;
+
+            System.out.println("Dados do usuário atualizados com sucesso!");
+        } else {
+            System.out.println("Usuário não encontrado.");
+        }
+    }
+
+    // Método para remover usuário
+    public static void removerUsuario(Scanner scanner) {
+        System.out.print("Digite o ID do usuário que deseja remover: ");
+        int idUsuario = scanner.nextInt();
+        scanner.nextLine(); // Consome o '\n' pendente após nextInt()
+
+        Usuario usuario = buscarUsuarioPorId(idUsuario);
+        if (usuario != null) {
+            usuarios.remove(usuario);
+            System.out.println("Usuário removido com sucesso!");
+        } else {
+            System.out.println("Usuário não encontrado.");
+        }
+    }
+
+    // Método auxiliar para buscar usuário por ID
+    private static Usuario buscarUsuarioPorId(int idUsuario) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getId() == idUsuario) {
+                return usuario;
+            }
+        }
+        return null;
+    }
+
+    // Função de gerenciamento de usuários, que será chamada no menu
+    public static void gerenciarUsuarios(Scanner scanner) {
+        System.out.println("\n=== Gerenciamento de Usuários ===");
+        System.out.println("1. Cadastrar usuário");
+        System.out.println("2. Listar usuários");
+        System.out.println("3. Alterar dados do usuário");
+        System.out.println("4. Remover usuário");
+        System.out.print("Escolha uma opção: ");
+        int opcao = scanner.nextInt();
+        scanner.nextLine(); // Para consumir o '\n' depois do nextInt()
+
+        switch (opcao) {
+            case 1:
+                cadastrarUsuario(scanner);
+                break;
+            case 2:
+                listarUsuarios();
+                break;
+            case 3:
+                alterarDadosUsuario(scanner);
+                break;
+            case 4:
+                removerUsuario(scanner);
+                break;
+            default:
+                System.out.println("Opção inválida!");
+        }
     }
 }
