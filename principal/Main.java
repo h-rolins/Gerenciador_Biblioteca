@@ -1,5 +1,6 @@
 package principal;
 import java.util.Scanner;
+import modelos.Usuario;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    //Usuario.gerenciarUsuario(scanner);
+                    Usuario.gerenciarUsuarios(scanner);
                     break;
                 case 2:
                     System.out.println("Você escolheu a Opção 2.");

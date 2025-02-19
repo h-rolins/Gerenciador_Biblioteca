@@ -9,7 +9,6 @@ public class Usuario {
     private String email;
     private String senha;
 
-    // Construtor
     public Usuario(int id, String nome, String email, String senha) {
         this.id = id;
         this.nome = nome;
@@ -17,7 +16,6 @@ public class Usuario {
         this.senha = senha;
     }
 
-    // Getters e setters
     public int getId() {
         return id;
     }
@@ -38,7 +36,6 @@ public class Usuario {
         return usuarios;
     }
 
-    // Método para cadastrar usuário
     public static void cadastrarUsuario(Scanner scanner) {
         System.out.print("Digite o nome do usuário: ");
         String nome = scanner.nextLine();
@@ -53,7 +50,6 @@ public class Usuario {
         System.out.println("Usuário cadastrado com sucesso!");
     }
 
-    // Método para listar os usuários
     public static void listarUsuarios() {
         if (usuarios.isEmpty()) {
             System.out.println("Não há usuários cadastrados.");
@@ -65,7 +61,6 @@ public class Usuario {
         }
     }
 
-    // Método para alterar os dados do usuário
     public static void alterarDadosUsuario(Scanner scanner) {
         System.out.print("Digite o ID do usuário que deseja alterar: ");
         int idUsuario = scanner.nextInt();
@@ -91,7 +86,6 @@ public class Usuario {
         }
     }
 
-    // Método para remover usuário
     public static void removerUsuario(Scanner scanner) {
         System.out.print("Digite o ID do usuário que deseja remover: ");
         int idUsuario = scanner.nextInt();
@@ -106,7 +100,6 @@ public class Usuario {
         }
     }
 
-    // Método auxiliar para buscar usuário por ID
     private static Usuario buscarUsuarioPorId(int idUsuario) {
         for (Usuario usuario : usuarios) {
             if (usuario.getId() == idUsuario) {
@@ -116,7 +109,6 @@ public class Usuario {
         return null;
     }
 
-    // Função de gerenciamento de usuários, que será chamada no menu
     public static void gerenciarUsuarios(Scanner scanner) {
         System.out.println("\n=== Gerenciamento de Usuários ===");
         System.out.println("1. Cadastrar usuário");
@@ -125,7 +117,7 @@ public class Usuario {
         System.out.println("4. Remover usuário");
         System.out.print("Escolha uma opção: ");
         int opcao = scanner.nextInt();
-        scanner.nextLine(); // Para consumir o '\n' depois do nextInt()
+        scanner.nextLine();
 
         switch (opcao) {
             case 1:
