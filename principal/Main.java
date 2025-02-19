@@ -1,9 +1,9 @@
 package principal;
 
 import java.util.Scanner;
-import modelos.Usuario;
 
 import static modelos.Livro.gerenciarLivros;
+import static modelos.Revista.gerenciarRevistas;
 import static modelos.Usuario.gerenciarUsuarios;
 
 public class Main {
@@ -30,7 +30,7 @@ public class Main {
                     gerenciarLivros(scanner);
                     break;
                 case 3:
-                    //gerenciarRevistas(scanner);
+                    gerenciarRevistas(scanner);
                     break;
                 case 4:
                    //gerenciarEmprestimo(scanner);
@@ -44,6 +44,4 @@ public class Main {
 
         } while (opcao != 5);
     }
-
-
 }
