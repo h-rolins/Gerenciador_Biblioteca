@@ -2,8 +2,8 @@ package principal;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
-        //Usuario usuario = new Usuario();
         Scanner scanner = new Scanner(System.in);
         int opcao;
 
@@ -19,7 +19,7 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    //Usuario.gerenciarUsuario(scanner);
+                    //Usuario.gerenciarUsuarios(scanner);
                     break;
                 case 2:
                     System.out.println("Você escolheu a Opção 2.");
