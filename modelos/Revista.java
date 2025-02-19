@@ -1,3 +1,5 @@
+package modelos;
+
 public class Revista extends ItemBiblioteca {
     private int edicao;
 

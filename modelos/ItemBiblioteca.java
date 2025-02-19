@@ -1,3 +1,5 @@
+package modelos;
+
 public class ItemBiblioteca {
     private int id;
     private String titulo;
