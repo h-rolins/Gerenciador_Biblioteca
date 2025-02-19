@@ -1,11 +1,11 @@
 package modelos;
 
-import java.util.ArrayList;
+import servicos.OpUsuario;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class Usuario {
-    private static List<Usuario> usuarios = new ArrayList<>(); // Lista para armazenar os usuários
     private int id;
     private String nome;
     private String email;
@@ -34,8 +34,21 @@ public class Usuario {
         return senha;
     }
 
-    public static List<Usuario> getUsuarios() {
-        return usuarios;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+
+    public String getDescricao() {
+        return "ID: " + this.id + ", Nome: " + this.nome + ", Email: " + this.email;
     }
 
     public static void cadastrarUsuario(Scanner scanner) {
@@ -46,19 +59,21 @@ public class Usuario {
         System.out.print("Digite a senha do usuário: ");
         String senha = scanner.nextLine();
 
-        int novoId = usuarios.size() + 1; // Gera um ID único para o novo usuário
+        int novoId = OpUsuario.loadUsuarios().size() + 1; // Gera um ID único
         Usuario novoUsuario = new Usuario(novoId, nome, email, senha);
-        usuarios.add(novoUsuario);
+        OpUsuario.saveUsuario(novoUsuario);
         System.out.println("Usuário cadastrado com sucesso!");
     }
 
     public static void listarUsuarios() {
+        List<Usuario> usuarios = OpUsuario.loadUsuarios();
+
         if (usuarios.isEmpty()) {
             System.out.println("Não há usuários cadastrados.");
         } else {
             System.out.println("\n===== Lista de Usuários =====");
             for (Usuario usuario : usuarios) {
-                System.out.println("ID: " + usuario.getId() + " | Nome: " + usuario.getNome() + " | E-mail: " + usuario.getEmail());
+                System.out.println(usuario.getDescricao());
             }
         }
     }
@@ -68,7 +83,16 @@ public class Usuario {
         int idUsuario = scanner.nextInt();
         scanner.nextLine(); // Consome o '\n' pendente após nextInt()
 
-        Usuario usuario = buscarUsuarioPorId(idUsuario);
+        List<Usuario> usuarios = OpUsuario.loadUsuarios();
+        Usuario usuario = null;
+
+        for (Usuario u : usuarios) {
+            if (u.getId() == idUsuario) {
+                usuario = u;
+                break;
+            }
+        }
+
         if (usuario != null) {
             System.out.print("Digite o novo nome do usuário (atual: " + usuario.getNome() + "): ");
             String novoNome = scanner.nextLine();
@@ -77,11 +101,8 @@ public class Usuario {
             System.out.print("Digite a nova senha do usuário (atual: " + usuario.getSenha() + "): ");
             String novaSenha = scanner.nextLine();
 
-            // Atualiza os dados do usuário
-            usuario.nome = novoNome;
-            usuario.email = novoEmail;
-            usuario.senha = novaSenha;
-
+            usuario = new Usuario(usuario.getId(), novoNome, novoEmail, novaSenha);
+            OpUsuario.updateUsuario(usuario);
             System.out.println("Dados do usuário atualizados com sucesso!");
         } else {
             System.out.println("Usuário não encontrado.");
@@ -93,24 +114,9 @@ public class Usuario {
         int idUsuario = scanner.nextInt();
         scanner.nextLine(); // Consome o '\n' pendente após nextInt()
 
-        Usuario usuario = buscarUsuarioPorId(idUsuario);
-        if (usuario != null) {
-            usuarios.remove(usuario);
-            System.out.println("Usuário removido com sucesso!");
-        } else {
-            System.out.println("Usuário não encontrado.");
-        }
+        OpUsuario.deleteUsuario(idUsuario);
+        System.out.println("Usuário removido com sucesso!");
     }
-
-    private static Usuario buscarUsuarioPorId(int idUsuario) {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getId() == idUsuario) {
-                return usuario;
-            }
-        }
-        return null;
-    }
-
     public static void gerenciarUsuarios(Scanner scanner) {
         System.out.println("\n=== Gerenciamento de Usuários ===");
         System.out.println("1. Cadastrar usuário");
