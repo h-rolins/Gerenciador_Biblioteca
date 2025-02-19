@@ -1,11 +1,10 @@
 package principal;
 
-import modelos.Livro;
-import servicos.OpLivro;
-
-import java.util.List;
 import java.util.Scanner;
 import modelos.Usuario;
+
+import static modelos.Livro.gerenciarLivros;
+import static modelos.Usuario.gerenciarUsuarios;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,29 +12,28 @@ public class Main {
         int opcao;
 
         do {
-            // Exibe o menu para o usuário
-            System.out.println("==== MENU ====");
-            System.out.println("1. Salvar Livro");
-            System.out.println("2. Listar Livros");
-            System.out.println("3. Atualizar Livro");
-            System.out.println("4. Excluir Livro");
-            System.out.println("0. Sair");
-            System.out.print("Escolha uma opção: ");
+            System.out.println("\n==== MENU ====");
+            System.out.println("1. Gerenciar usuário");
+            System.out.println("2. Gerenciar Livros");
+            System.out.println("3. Gerenciar Revistas");
+            System.out.println("4. Empréstimos e Devoluções");
+            System.out.println("5. Sair");
+
             opcao = scanner.nextInt();
             scanner.nextLine();  // Limpa o buffer do scanner
 
             switch (opcao) {
                 case 1:
-                    salvarLivro(scanner);
+                    gerenciarUsuarios(scanner);
                     break;
                 case 2:
-                    listarLivros();
+                    gerenciarLivros(scanner);
                     break;
                 case 3:
-                    atualizarLivro(scanner);
+                    //gerenciarRevistas(scanner);
                     break;
                 case 4:
-                    excluirLivro(scanner);
+                   //gerenciarEmprestimo(scanner);
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -44,117 +42,8 @@ public class Main {
                     System.out.println("Opção inválida!");
             }
 
-        } while (opcao != 0);
+        } while (opcao != 5);
     }
 
-    // Método para salvar um livro
-    private static void salvarLivro(Scanner scanner) {
-        System.out.println("Você escolheu a opção 1 (Salvar Livro).");
 
-        // Solicita os dados do livro
-        System.out.print("Digite o ID do livro: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();  // Limpa o buffer
-        System.out.print("Digite o título do livro: ");
-        String titulo = scanner.nextLine();
-        System.out.print("Digite o autor do livro: ");
-        String autor = scanner.nextLine();
-        System.out.print("Digite a editora do livro: ");
-        String editora = scanner.nextLine();
-        System.out.print("Digite o ano de publicação do livro: ");
-        String anoPublicacao = scanner.nextLine();
-        System.out.print("Digite o número de páginas do livro: ");
-        int numPag = scanner.nextInt();
-        scanner.nextLine();  // Limpa o buffer
-
-        // Cria o livro e salva
-        Livro livro = new Livro(id, titulo, autor, editora, anoPublicacao, numPag);
-        OpLivro.saveLivro(livro);
-        System.out.println("Livro salvo com sucesso!");
-    }
-
-    // Método para listar os livros
-    private static void listarLivros() {
-        System.out.println("Você escolheu a opção 2 (Listar Livros).");
-        List<Livro> livros = OpLivro.loadLivros();
-
-        if (livros.isEmpty()) {
-            System.out.println("Não há livros cadastrados.");
-        } else {
-            for (Livro livro : livros) {
-                System.out.println("ID: " + livro.getId() + ", Título: " + livro.getTitulo() +
-                        ", Autor: " + livro.getAutor() + ", Editora: " + livro.getEditora() +
-                        ", Ano de Publicação: " + livro.getAnoPublicacao() + ", Páginas: " + livro.getNumPag());
-            }
-        }
-    }
-
-    // Método para atualizar um livro
-    private static void atualizarLivro(Scanner scanner) {
-        System.out.println("Você escolheu a opção 3 (Atualizar Livro).");
-
-        // Solicita o ID do livro a ser atualizado
-        System.out.print("Digite o ID do livro que deseja atualizar: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();  // Limpa o buffer
-
-        List<Livro> livros = OpLivro.loadLivros();
-        boolean encontrado = false;
-
-        for (Livro livro : livros) {
-            if (livro.getId() == id) {
-                encontrado = true;
-                System.out.println("Livro encontrado! Agora, digite os novos dados.");
-
-                // Solicita os novos dados
-                System.out.print("Digite o novo título: ");
-                livro.setTitulo(scanner.nextLine());
-                System.out.print("Digite o novo autor: ");
-                livro.setAutor(scanner.nextLine());
-                System.out.print("Digite a nova editora: ");
-                livro.setEditora(scanner.nextLine());
-                System.out.print("Digite o novo ano de publicação: ");
-                livro.setAnoPublicacao(scanner.nextLine());
-                System.out.print("Digite o novo número de páginas: ");
-                livro.setNumPag(scanner.nextInt());
-                scanner.nextLine();  // Limpa o buffer
-
-                // Atualiza o livro
-                OpLivro.updateLivro(livro);
-                System.out.println("Livro atualizado com sucesso!");
-                break;
-            }
-        }
-
-        if (!encontrado) {
-            System.out.println("Livro não encontrado com o ID informado.");
-        }
-    }
-
-    // Método para excluir um livro
-    private static void excluirLivro(Scanner scanner) {
-        System.out.println("Você escolheu a opção 4 (Excluir Livro).");
-
-        // Solicita o ID do livro a ser excluído
-        System.out.print("Digite o ID do livro que deseja excluir: ");
-        int id = scanner.nextInt();
-        scanner.nextLine();  // Limpa o buffer
-
-        List<Livro> livros = OpLivro.loadLivros();
-        boolean encontrado = false;
-
-        for (Livro livro : livros) {
-            if (livro.getId() == id) {
-                encontrado = true;
-                // Exclui o livro
-                OpLivro.deleteLivro(id);
-                System.out.println("Livro excluído com sucesso!");
-                break;
-            }
-        }
-
-        if (!encontrado) {
-            System.out.println("Livro não encontrado com o ID informado.");
-        }
-    }
 }
