@@ -1,9 +1,10 @@
 package principal;
 
 import java.util.Scanner;
-import modelos.Usuario;
 
+import static modelos.Emprestimo.gerenciarEmprestimos;
 import static modelos.Livro.gerenciarLivros;
+import static modelos.Revista.gerenciarRevistas;
 import static modelos.Usuario.gerenciarUsuarios;
 
 public class Main {
@@ -20,7 +21,7 @@ public class Main {
             System.out.println("5. Sair");
 
             opcao = scanner.nextInt();
-            scanner.nextLine();  // Limpa o buffer do scanner
+            scanner.nextLine();
 
             switch (opcao) {
                 case 1:
@@ -30,10 +31,10 @@ public class Main {
                     gerenciarLivros(scanner);
                     break;
                 case 3:
-                    //gerenciarRevistas(scanner);
+                    gerenciarRevistas(scanner);
                     break;
                 case 4:
-                   //gerenciarEmprestimo(scanner);
+                   gerenciarEmprestimos(scanner);
                     break;
                 case 5:
                     System.out.println("Saindo...");
