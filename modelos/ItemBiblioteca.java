@@ -1,6 +1,6 @@
 package modelos;
 
-public class ItemBiblioteca {
+public class ItemBiblioteca{
     private int id;
     private String titulo;
     private String autor;
@@ -14,6 +14,7 @@ public class ItemBiblioteca {
         this.editora = editora;
         this.anoPublicacao = anoPublicacao;
     }
+
     public int getId() {
         return id;
     }

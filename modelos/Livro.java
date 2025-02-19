@@ -1,4 +1,7 @@
 package modelos;
+
+import java.io.Serializable;
+
 public class Livro extends ItemBiblioteca {
     private int numPag;
 
