@@ -19,6 +19,7 @@ public class Main {
             System.out.println("3. Gerenciar Revistas");
             System.out.println("4. Empréstimos e Devoluções");
             System.out.println("5. Sair");
+            System.out.println("Insira a opção desejada: ");
 
             opcao = scanner.nextInt();
             scanner.nextLine();
